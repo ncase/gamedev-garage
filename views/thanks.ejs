@@ -1,0 +1,88 @@
+<%
+
+	// Placeholder Donation
+	var donation = donation || { 
+		custom:{
+			name:"John Doe",
+			email:"craftyygames@gmail.com"
+		},
+		mc_gross:13.37
+	};
+
+	// Descending order
+	var name = donation.custom.name ? "<span>"+donation.custom.name+"</span>" : "[Anonymous]";
+	var amount = donation.mc_gross;
+	var email = donation.custom.email;
+
+%>
+
+<head>
+	<title><%=SANDBOX_MODE ? "[SANDBOX] " : ""%>Thanks!</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
+	<link href='/css/thanks.css' rel='stylesheet' type='text/css'>
+	<link href='/css/assets.css' rel='stylesheet' type='text/css'>
+	<link rel="shortcut icon" href="favicon.ico" />
+</head>
+
+<body>
+
+	<!-- THANKS -->
+	<div id="thanks_container">
+		<div id="thanks">
+
+			<div style="font-size:48px;color:#fff">You are now Officially Awesome.</div>
+
+			<br><br>
+			Thanks to you, <%-name%>, this game asset bundle is now <span>$<%=amount%></span> closer to becoming public domain!<br/>
+			You may now use these assets for commercial and personal use, royalty-free, no attribution necessary.
+
+			<!--br/><br/>
+			<a style="text-decoration: none;" href="http://commondatastorage.googleapis.com/nutcasenightmare/juicebox/Commercial.zip">
+				<div id="download_juice">GET THE JUICE</div>
+			</a-->
+
+			<br><br>
+			A copy of this link has also been sent to <span><%=email%></span>, just in case.<br><br>
+			<span>Until next time!</span><br>
+			~ Nick
+
+			<br><br>
+
+			<div style="z-index:100">
+				<!-- Facebook -->
+				<div class="fb-like" data-href="http://commonly.cc/" data-send="true" data-width="450" data-show-faces="false" data-colorscheme="dark"></div>
+
+				<!-- Twitter -->
+				<div style="margin-top: 5px">	
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://commonly.cc/" data-via="ncasenmare">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- DOWNLOADS -->
+	<div id="downloads">
+		<div style="width:930px; margin: 0 auto">
+			<% include assets %>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<div id="footer">
+		<% include footer %>
+	</div>
+
+</body>
+	
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=284589898330989";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>

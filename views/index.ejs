@@ -1,0 +1,355 @@
+<%
+
+	// Placeholder Donations
+	var donations = (SANDBOX_MODE) ? [
+
+		{ custom:{name:"Uncle Scrooge"}, mc_gross:888 },
+		{ custom:{name:"John Doe"}, mc_gross:13.37 },
+		{ custom:{name:"Foo Bar"}, mc_gross:3.21 },
+		{ custom:{name:""}, mc_gross:1 },
+		{ custom:{name:"@twitter"}, mc_gross:12.34 },
+		{ custom:{name:"/u/Reddit"}, mc_gross:0.01 },
+
+	] : donations;
+
+	// Descending order
+	donations.sort(function(a,b){
+		return parseFloat(b.mc_gross)-parseFloat(a.mc_gross);
+	});
+
+	// Total sum
+	var sum = 0;
+	for( var i=0; i<donations.length; i++ ){ 
+		var donation = donations[i];
+		sum+=parseFloat(donation.mc_gross);
+	}
+
+	// Funded
+	var isFunded = (sum>=TOTAL);
+
+%>
+
+<head>
+	<title><%=SANDBOX_MODE ? "[SANDBOX] " : ""%>The Gamedev Garage Sale</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
+	<link href='/css/index.css' rel='stylesheet' type='text/css'>
+	<link href='/css/assets.css' rel='stylesheet' type='text/css'>
+	<link rel="shortcut icon" href="favicon.ico" />
+</head>
+
+<body>
+
+	<!-- BACKGROUND -->
+	<div id="background">
+		<!--video loop autoplay class="bg" style="width:100%; display: inline-block;">
+			<source src="http://commondatastorage.googleapis.com/commonly/tggs/bg.mp4" type="video/mp4">
+			<source src="http://commondatastorage.googleapis.com/commonly/tggs/bg.webm" type="video/webm">
+			<!--source src="http://vonchurch.com/video/loop-home.mp4" type="video/mp4">
+			<source src="http://vonchurch.com/video/loop-home.webm" type="video/webm">
+			<source src="http://vonchurch.com/video/loop-home.ogv" type="video/ogg">
+		</video-->
+	</div>
+
+	<!-- THE SPLASH PREVIEW -->
+	<div id="header">
+		<div id="header_container">
+
+			<div id="header_info">
+				<div id="header_info_container">
+					<div id="header_info_title">THE GAMEDEV GARAGE SALE</div>
+					<div id="header_info_bar">
+						<div id="header_info_bar_white" style="width:<%=sum*(100/TOTAL)%>%"></div>
+						<!--div id="header_info_bar_shadow"></div-->
+					</div>
+
+					<div id="header_info_caption">
+						<span>$<%=sum.toFixed(2)%></span> RAISED OUT OF <span>$<%=TOTAL%></span> FOR THIS GAME ASSET BUNDLE TO GO PUBLIC DOMAIN
+
+						<br>
+						Let's show the world we don't need walled gardens or draconian DRM.<br>
+						Pay what you want for open game art, scripts, and music.<br>
+
+						<%if(isFunded){%>
+							<br>
+							<span style="font-size:20px">
+								update: we did it - it's all public domain now!
+							</span>
+						<%}else{%>
+							<div id="countdown">&nbsp;</div>
+						<%}%>
+						<div id="splash_button">
+							<%= (isFunded) ? 'GET BUNDLE' : 'CHIP IN' %>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- An arrow pointing down -->
+	<div id="scroll_down">
+		<div id="scroll_0"></div>
+		<div id="scroll_1"></div>
+		<div id="scroll_2"></div>
+		<div id="scroll_3"></div>
+	</div>
+
+	<!-- WHY & HOW -->
+	<div class="black section" id="why">
+		<div id="section_container">
+			<p>
+				<span>Bring copyright back to its roots.</span><br/>
+				SOPA. ACTA. CISPA.
+				The original intent of copyright was to let artists recoup their costs, <i>then make their works open to the public.</i>
+				It's since been distorted beyond recognition, and it's time we fix that.
+
+				<!--
+				<span>Bring copyright back to its roots.</span><br/>
+				SOPA. ACTA. CISPA.
+				The original intent of copyright was to let artists recoup their costs, <i>then make their works open to the public.</i>
+				It's since been distorted beyond recognition, and it's time we fix that.
+
+				Here are previews & samples of this bundle:<br>
+				(todo: write up actual descriptions)-->
+			</p>
+		</div>
+	</div>
+
+	<!-- WHAT: Preview the stuff you're getting. -->
+	<!--div class="white section" id="what" style="padding:0"-->
+	<div class="white section" id="download" style="padding:0;padding-top:30px">
+		<div id="section_container" style="width:930px">
+			<p>
+				<!--Nine creators. Ten music tracks. 
+				<br>All in one bundle.>
+
+				<span style="font-size:40px">
+					What's in this Bundle?<br>
+				</span>
+				<span style="color:#555">
+					Nine packages from nine creators, all in one bundle.<br>
+					Check out these previews & samples below!
+				</span-->
+
+				<span>What do you get for contributing?</span><br>
+				
+				9 packages from 9 creators.
+				Art, code, and music from award-winning games, all wrapped up here for you.
+				Check out the previews & demos below!
+				You may freely download any of these samples and use them under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License</a>.
+				
+				<%if(isFunded){%>
+					<br><br>
+					<span>UPDATE March 26th:</span>
+					<br>
+					Everything here is now dedicated to the public domain, under <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons Zero</a>.
+					<br>
+					Free downloads for everyone!
+				<%}%>
+
+				<%if(isFunded){ var PREVIEW = false; }%>
+				<% include assets %>
+
+			</p>
+		</div>
+	</div>
+
+	<!-- WHY & HOW -->
+	<div class="black section" id="donate">
+		<div id="section_container">
+			<p>
+				<span>How does this work?</span><br/>
+				You can pay what you want - as low as a penny - to use these assets in your commercial or personal projects.
+				And here's the kicker: once we raise enough money, everything goes public domain for <i>anyone</i> to use for <i>anything</i>.
+			</p>
+		</div>
+	</div>
+
+
+	<div class="white section" id="what" style="padding:0">
+		<div id="section_container">
+			
+			<%if(isFunded){%>
+				<p>
+					<br>
+					<span>UPDATE March 26th:</span>
+					<br>
+					The Gamedev Garage Sale has already met its goal, and all assets are now <a href="#download">free to download</a>.
+					You're still welcome to donate, if you'd like!
+				</p>
+				<hr>
+			<%}%>
+		
+			<div id="payment">
+
+				<%if(SANDBOX_MODE){%>
+					<form id="payment_form" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+				<%}else{%>
+					<form id="payment_form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+				<%}%>
+
+					<!-- Paypal ID -->
+					<input type="hidden" name="business" value="<%= SANDBOX_MODE ? PAYPAL_EMAIL_SANDBOX : PAYPAL_EMAIL %>">
+
+					<!-- Paypal Variables -->
+					<input type="hidden" name="cmd" value="_xclick">
+					<input type="hidden" name="lc" value="CA">
+					<input type="hidden" name="item_name" value="The Gamedev Garage Sale">
+					<input type="hidden" name="currency_code" value="USD">
+					<input type="hidden" name="button_subtype" value="services">
+					<input type="hidden" name="no_note" value="1">
+					<input type="hidden" name="no_shipping" value="1">
+					<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
+					<!--input type="hidden" name="amount" value="0.01"-->
+
+					<!-- Paypal Variables Override -->
+					<input type="hidden" name="address_override" value="1">
+					<input type="hidden" name="notify_url" value="http://commonly.cc/paypal/ipn">
+					<input type="hidden" name="return" value="http://commonly.cc/thanks">
+
+					<!-- Custom Params -->
+					<input name="custom" id="custom" type="hidden">
+
+					How would you like to be credited:<br/>(Name, @Twitter, /u/Reddit)<br/>
+					<input name="custom_name" type="text" placeholder="[Anonymous]"><br/><br/>
+
+					Send download link to this email:<br/>
+					<input name="custom_email" type="email" placeholder="your@email.com" required><br/>
+					<input name="custom_email_subscribe" type="checkbox" checked="true">
+					<span style="font-size:14px">keep me updated on this bundle. (don't worry, i'll never spam you)</span>
+					<br/><br/>
+
+					Pay What You Want: (USD) <br/>
+					<!--input type="text" name="amount" pattern="\d+(\.\d+)?" placeholder="13.37" required-->
+					<input type="text" name="amount" pattern="\d+(\.\d+)?" placeholder="custom amount" value="13.37" required>
+					<br/><br/>				
+
+					<!-- Submit -->
+					<input type="submit" style="display:none"/>
+					
+					<!-- Paypal's Tracking Pixel, this ain't mine. -->
+					<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+
+				</form>
+
+			</div>
+
+			<div id="leaderboard">
+				<span style="font-size:30px; line-height: 1em;">Top 10 Contributors</span><br/>
+				<ol style="margin-bottom:0" >
+					<%
+					for( var i=0; i<donations.length && i<10; i++ ){ 
+						
+						var donation = donations[i];
+						var name = donation.custom.name;
+						
+						var link = null;
+						var redditLink = (/u\/(.+)/).exec(name);
+						if(redditLink) link="http://reddit.com/u/"+redditLink[1];
+						var twitterLink = (/@([a-zA-Z0-9]+)/).exec(name);
+						if(twitterLink) link="https://twitter.com/"+twitterLink[1];
+
+						%>
+
+						<li>
+							<%if(link){%>
+								<a href="<%=link%>"><%=name%></a>
+							<%}else if(name){%>
+								<%=name%>
+							<%}else{%>
+								<span>[Anonymous]</span>
+							<%}%>
+							<span><%=" - $"+parseFloat(donation.mc_gross).toFixed(2)%></span>
+						</li>
+
+					<%
+					} %>
+
+				</ol>
+				<div id="leaderboard_show" style="margin-top:10px" >show all <%=donations.length%></div>
+				<ol id="leaderboard_hidden" style="display:none;margin-top:0" start="11">
+					<%
+					for( var i=10; i<donations.length; i++ ){ 
+						
+						var donation = donations[i];
+						var name = donation.custom.name;
+						
+						var link = null;
+						var redditLink = (/u\/(.+)/).exec(name);
+						if(redditLink) link="http://reddit.com/u/"+redditLink[1];
+						var twitterLink = (/@(.+)/).exec(name);
+						if(twitterLink) link="https://twitter.com/"+twitterLink[1];
+
+						%>
+
+						<li>
+							<%if(link){%>
+								<a href="<%=link%>"><%=name%></a>
+							<%}else if(name){%>
+								<%=name%>
+							<%}else{%>
+								<span>[Anonymous]</span>
+							<%}%>
+							<span><%=" - $"+parseFloat(donation.mc_gross).toFixed(2)%></span>
+						</li>
+
+					<%
+					} %>
+
+				</ol>
+			</div>
+			
+			<!-- Bigass BUY -->
+			<div id="submit_button">BUY THIS BUNDLE</div>
+
+		</div>
+	</div>
+
+	<!-- A SPACE FOR FUN -->
+	<div id="splash2">
+	
+		<!-- FOOTER -->
+		<div id="footer_info">
+			<div style="width:800px;margin:0 auto">
+
+				<div style="font-family:Oswald;font-size:70px;color:#fff;text-align:center;margin-top:10px">
+					Copyright's broken. Pass it on.
+				</div>
+
+				<!-- Facebook -->
+				<div style="width:400px; margin: 20px auto 0 auto;">
+					<div class="fb-like" data-href="http://commonly.cc/" data-send="true" data-width="450" data-show-faces="false" data-colorscheme="dark"></div>
+				</div>
+
+				<!-- Twitter -->
+				<div style="width:100px; margin: 5px auto 0 auto;">	
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://commonly.cc/" data-via="ncasenmare">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+<script>
+	var isFunded = <%=isFunded%>;
+	window.DEADLINE = '<%=DEADLINE%>';
+</script>
+<script src="/js/frontpage.js"></script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=284589898330989";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+

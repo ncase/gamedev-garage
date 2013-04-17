@@ -1,0 +1,19 @@
+{
+
+	"name": "ncase-commonly",
+	"version": "0.2.0",
+
+	"dependencies": {
+		"mongodb": "1.2.11",
+    	"sendgrid": "0.2.5",
+		"express": "3.1.0",
+		"paypal-ipn": "1.0.1",
+    	"ejs": "0.8.3"
+	},
+
+	"engines": {
+		"node": "0.8.x",
+		"npm": "1.1.x"
+	}
+
+}
